@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    font-family: 'Hind Siliguri', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    color: #1e293b;
+    background-color: #f8fafc;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  html.dark body {
+    color: #f1f5f9;
+    background-color: #090d16;
+  }
+}
+
+.font-arabic {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  direction: rtl;
+}
+
+.font-urdu {
+  font-family: 'Amiri', 'Noto Nastaliq Urdu', 'Traditional Arabic', serif;
+  direction: rtl;
+}
+
+.font-bengali {
+  font-family: 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
+}

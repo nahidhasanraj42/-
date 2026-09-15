@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        if (typeof window === 'undefined') return;
+        window.addEventListener('unhandledrejection', function(e) {
+          var r = e.reason;
+          var msg = typeof r === 'string' ? r : (r && r.message) || String(r || '');
+          if (/websocket|vite/i.test(msg)) {
+            e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+          }
+        }, true);
+        window.addEventListener('error', function(e) {
+          var msg = (e && e.message) || '';
+          if (/websocket|vite/i.test(msg)) {
+            e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+          }
+        }, true);
+        var OrigWS = window.WebSocket;
+        if (OrigWS) {
+          window.WebSocket = function(url, protocols) {
+            if (protocols === 'vite-hmr' || (typeof url === 'string' && (/vite-hmr|:3000/i.test(url)))) {
+              return {
+                readyState: 3,
+                send: function() {},
+                close: function() {},
+                addEventListener: function() {},
+                removeEventListener: function() {},
+                dispatchEvent: function() { return false; },
+                onopen: null,
+                onmessage: null,
+                onerror: null,
+                onclose: null
+              };
+            }
+            return new OrigWS(url, protocols);
+          };
+          window.WebSocket.prototype = OrigWS.prototype;
+          window.WebSocket.CONNECTING = 0;
+          window.WebSocket.OPEN = 1;
+          window.WebSocket.CLOSING = 2;
+          window.WebSocket.CLOSED = 3;
+        }
+      })();
+    </script>
+    <title>ভাষানিধি</title>
+    <meta name="description" content="ভাষানিধি - ল্যাঙ্গুয়েজ ব্রিজ একাডেমি।" />
+    <meta property="og:title" content="ভাষানিধি" />
+    <meta property="og:description" content="ভাষানিধি - ল্যাঙ্গুয়েজ ব্রিজ একাডেমি।" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Hind+Siliguri:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

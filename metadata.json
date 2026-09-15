@@ -1,0 +1,10 @@
+{
+  "name": "ভাষানিধি",
+  "description": "ভাষানিধি - ল্যাঙ্গুয়েজ ব্রিজ একাডেমি।",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
